@@ -1,0 +1,18 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: ApiBancaDigital
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://c1046.gconex.com:3306/c17-61-t-java
+    username: devsc17
+    password: c17-61-t-java
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQLDialect
+  messages:
+    basename: errorMessages

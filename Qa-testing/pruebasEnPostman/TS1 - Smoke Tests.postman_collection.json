@@ -1,0 +1,1270 @@
+{
+	"info": {
+		"_postman_id": "1e789660-ea5b-4644-bd01-fbcf93ae40c8",
+		"name": "TS1 - Smoke Tests",
+		"description": "Prueba rápida de los Caminos Felices de cada Endpoint de Union Wallet.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "33720676"
+	},
+	"item": [
+		{
+			"name": "Persona Endpoints",
+			"item": [
+				{
+					"name": "TC1 - Crear Persona",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"pm.test(\"El mail coincide\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"claugonzalez@gmail.com\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"num_dni\": \"25678123\",\n    \"name\": \"Claudia\",\n    \"lastName\": \"Gonzalez\",\n    \"birth\": \"1997-05-25\",\n    \"phone\": \"1533674568\",\n    \"email\": \"claugonzalez@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseURL}}/api/v1/person"
+					},
+					"response": []
+				},
+				{
+					"name": "TC2 - Actualizar Persona",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Coincide con el nuevo numero de telefono\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"1123453457\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"personEmail\": \"claugonzalez@gmail.com\",\n  \"personPhone\": \"1123453457\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/api/v1/person?personEmail=claugonzalez@gmail.com",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"person"
+							],
+							"query": [
+								{
+									"key": "personEmail",
+									"value": "claugonzalez@gmail.com"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC3 - Borrar Persona",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/api/v1/person?personEmail=claugonzalez@gmail.com",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"person"
+							],
+							"query": [
+								{
+									"key": "personEmail",
+									"value": "claugonzalez@gmail.com"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC4 - Encontrar Pesona por Número",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"El nombre del usuario es Liza\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Liza\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/api/v1/person/:personNum",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"person",
+								":personNum"
+							],
+							"variable": [
+								{
+									"key": "personNum",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC5 - Encontrar Pesona por Email",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"El nombre del usuario es Rafael \", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Rafael\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/api/v1/person/findPersonByEmail?personEmail=pazrafael2@hotmail.com",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"person",
+								"findPersonByEmail"
+							],
+							"query": [
+								{
+									"key": "personEmail",
+									"value": "pazrafael2@hotmail.com"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC6 - Listar todas las Personas",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseURL}}/api/v1/person"
+					},
+					"response": []
+				},
+				{
+					"name": "TC7 - Crear Full Persona",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"pm.test(\"El apellido es Paz\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Paz\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"num_dni\": \"34567999\",\n    \"name\": \"Carolina\",\n    \"lastName\": \"Gomez\",\n    \"birth\": \"1999-04-13\",\n    \"phone\": \"1123335678\",\n    \"email\": \"cgomez@hotmail.com\",\n    \"userName\": \"carito\",\n    \"password\": \"1234ab\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseURL}}/api/v1/person/createFullPerson"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Usuario Endpoints",
+			"item": [
+				{
+					"name": "TC8 - Crear Usuario",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"pm.test(\"Usuario creado con exito!\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"zarfelix\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"userName\": \"zarfelix\",\n  \"password\": \"12345a\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/api/v1/user?personEmail=zarate_felix@gmail.com",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user"
+							],
+							"query": [
+								{
+									"key": "personEmail",
+									"value": "zarate_felix@gmail.com"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC9 - Actualizar Usuario",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Modificación exitosa\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"modficado con exito!\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userName\": \"felixzar\",\n    \"userAlias\": \"felixz.uw\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/api/v1/user?personEmail=zarate_felix@gmail.com",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user"
+							],
+							"query": [
+								{
+									"key": "personEmail",
+									"value": "zarate_felix@gmail.com"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC10 - Borrar Usuario",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/api/v1/user?personEmail=zarate_felix@gmail.com",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user"
+							],
+							"query": [
+								{
+									"key": "personEmail",
+									"value": "zarate_felix@gmail.com"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC11 - Login de usuario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"cgomez@hotmail.com\",\n  \"password\": \"1234ab\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseURL}}/api/v1/user/login"
+					},
+					"response": []
+				},
+				{
+					"name": "TC12 - Encontrar Usuario por Número",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"El userName es cata94\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"cata94\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/api/v1/user/:userNum",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								":userNum"
+							],
+							"variable": [
+								{
+									"key": "userNum",
+									"value": "553"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC13 - Encontrar Usuario por Person Email",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"El userName es johan123\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"johan123\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/api/v1/user/findUserByEmail?personEmail=johanlopez@gmail.com",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"findUserByEmail"
+							],
+							"query": [
+								{
+									"key": "personEmail",
+									"value": "johanlopez@gmail.com"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC14 - Encontrar Usuario por UserName",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"El userAlias es carito_alias\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"carito_alias\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/api/v1/user/findUserByUserName?userName=carito",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"findUserByUserName"
+							],
+							"query": [
+								{
+									"key": "userName",
+									"value": "carito"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC15 - Listar todos los Usuarios",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseURL}}/api/v1/user"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Transferencia Endpoints",
+			"item": [
+				{
+					"name": "TC16 - Hacer una Transferencia",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nroCuentaOrigen\": 0,\n  \"nroCuentaDestino\": 0,\n  \"monto\": 0,\n  \"descripcion\": \"string\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseURL}}/api/v1/transferencia/transferir"
+					},
+					"response": []
+				},
+				{
+					"name": "TC17 - Lista de Transferencias por Rango de Fecha",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nroCuenta\": 100520073,\n  \"fechaInicial\": \"2024-04-20\",\n  \"fechaFinal\": \"2024-04-22\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseURL}}/api/v1/transferencia/byRangoFecha"
+					},
+					"response": []
+				},
+				{
+					"name": "TC18 - Lista de Transferencias Enviadas a una Cuenta Destino",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nroCuenta\": 100520074\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseURL}}/api/v1/transferencia/byCuentaDestino"
+					},
+					"response": []
+				},
+				{
+					"name": "TC19 - Lista de Transferencias Creadas desde una Cuenta Origen",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nroCuenta\": 100520073\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseURL}}/api/v1/transferencia/byCuentaOrigen"
+					},
+					"response": []
+				},
+				{
+					"name": "TC20 - Lista de Transferencias Creadas y Recibidas de una Cuenta",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nroCuenta\": 100520073\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseURL}}/api/v1/transferencia/byCuenta"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cuenta Endpoints",
+			"item": [
+				{
+					"name": "TC21 - Crear una Cuenta",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}/api/v1/cuenta/create?userName=carito",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"cuenta",
+								"create"
+							],
+							"query": [
+								{
+									"key": "userName",
+									"value": "carito"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"estado\": \"<boolean>\",\n  \"fkNumUsuario\": \"<long>\",\n  \"numCuenta\": \"<long>\",\n  \"saldoTotal\": \"<double>\",\n  \"fechaApertura\": \"<date>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{baseUrl}}/api/v1/cuenta/create"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"numCuenta\": \"<long>\",\n  \"fkNumUsuario\": \"<long>\",\n  \"saldoTotal\": \"<double>\",\n  \"estado\": \"<boolean>\",\n  \"fechaApertura\": \"<date>\"\n}"
+						}
+					]
+				},
+				{
+					"name": "TC22 - Encontrar Cuenta por Numero de Cuenta",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}/api/v1/cuenta/:numCuenta",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"cuenta",
+								":numCuenta"
+							],
+							"variable": [
+								{
+									"key": "numCuenta",
+									"value": "100520023"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/cuenta/:numCuenta",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"cuenta",
+										":numCuenta"
+									],
+									"variable": [
+										{
+											"key": "numCuenta"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"numCuenta\": \"<long>\",\n  \"fkNumUsuario\": \"<long>\",\n  \"saldoTotal\": \"<double>\",\n  \"estado\": \"<boolean>\",\n  \"fechaApertura\": \"<date>\"\n}"
+						}
+					]
+				},
+				{
+					"name": "TC23 - Borrar Cuenta",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/api/v1/cuenta/:numCuenta?userName=carito",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"cuenta",
+								":numCuenta"
+							],
+							"query": [
+								{
+									"key": "userName",
+									"value": "carito"
+								}
+							],
+							"variable": [
+								{
+									"key": "numCuenta",
+									"value": "100520122",
+									"description": " "
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/cuenta/:numCuenta",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"cuenta",
+										":numCuenta"
+									],
+									"variable": [
+										{
+											"key": "numCuenta"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "TC24 - Listar Todas las Cuentas Existentes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"url": "{{baseURL}}/api/v1/cuenta/listAll"
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"url": "{{baseUrl}}/api/v1/cuenta/listAll"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"numCuenta\": \"<long>\",\n    \"fkNumUsuario\": \"<long>\",\n    \"saldoTotal\": \"<double>\",\n    \"estado\": \"<boolean>\",\n    \"fechaApertura\": \"<date>\"\n  },\n  {\n    \"numCuenta\": \"<long>\",\n    \"fkNumUsuario\": \"<long>\",\n    \"saldoTotal\": \"<double>\",\n    \"estado\": \"<boolean>\",\n    \"fechaApertura\": \"<date>\"\n  }\n]"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Notificaciones Endpoints",
+			"item": [
+				{
+					"name": "TC25 - Enviar un Correo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/api/v1/mensajes/prueba/:destinatario/:asunto/:mensaje",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"mensajes",
+								"prueba",
+								":destinatario",
+								":asunto",
+								":mensaje"
+							],
+							"variable": [
+								{
+									"key": "destinatario",
+									"value": "airamespanamakeup@gmail.com",
+									"description": "(Required) "
+								},
+								{
+									"key": "asunto",
+									"value": "prueba",
+									"description": "(Required) "
+								},
+								{
+									"key": "mensaje",
+									"value": "prueba",
+									"description": "(Required) "
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/mensajes/prueba/:destinatario/:asunto/:mensaje",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"mensajes",
+										"prueba",
+										":destinatario",
+										":asunto",
+										":mensaje"
+									],
+									"variable": [
+										{
+											"key": "destinatario"
+										},
+										{
+											"key": "asunto"
+										},
+										{
+											"key": "mensaje"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "TC26 - Mensaje de Bienvenida al Sistema",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/api/v1/mensajes/bienvenida/:destinatario",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"mensajes",
+								"bienvenida",
+								":destinatario"
+							],
+							"variable": [
+								{
+									"key": "destinatario",
+									"value": "<string>",
+									"description": "(Required) "
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/mensajes/bienvenida/:destinatario",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"mensajes",
+										"bienvenida",
+										":destinatario"
+									],
+									"variable": [
+										{
+											"key": "destinatario"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "TC27 - Mensaje de Transferencia Realizada",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/api/v1/mensajes/transferencia/:nroCuentaOrigen/:email/:numReferencia",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"mensajes",
+								"transferencia",
+								":nroCuentaOrigen",
+								":email",
+								":numReferencia"
+							],
+							"variable": [
+								{
+									"key": "nroCuentaOrigen",
+									"value": "100520023"
+								},
+								{
+									"key": "email",
+									"value": "airamespanamakeup@gmail.com"
+								},
+								{
+									"key": "numReferencia",
+									"value": "10000475"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/mensajes/NotiTransferencia/:numReferencia",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"mensajes",
+										"NotiTransferencia",
+										":numReferencia"
+									],
+									"variable": [
+										{
+											"key": "numReferencia"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

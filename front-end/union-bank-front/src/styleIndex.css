@@ -1,0 +1,15 @@
+body {
+    padding: 0;
+    margin: 0;    
+}
+@media (max-width: 900px) {
+    .hide-img{
+        display: none;
+}
+}
+
+.header {
+    text-align: center;
+    font-weight: bold;
+}
+

@@ -1,0 +1,338 @@
+{
+	"info": {
+		"_postman_id": "7ed39d8f-787c-45eb-8faf-b3d5766bb40e",
+		"name": "TS3 - End to End Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "33720676"
+	},
+	"item": [
+		{
+			"name": "TC47 - Hacer una transferencia con datos válidos",
+			"item": [
+				{
+					"name": "1 - Encontrar una Cuenta Origen",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"url": "{{baseURL}}/api/v1/cuenta/listAll"
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"url": "{{baseUrl}}/api/v1/cuenta/listAll"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"numCuenta\": \"<long>\",\n    \"fkNumUsuario\": \"<long>\",\n    \"saldoTotal\": \"<double>\",\n    \"estado\": \"<boolean>\",\n    \"fechaApertura\": \"<date>\"\n  },\n  {\n    \"numCuenta\": \"<long>\",\n    \"fkNumUsuario\": \"<long>\",\n    \"saldoTotal\": \"<double>\",\n    \"estado\": \"<boolean>\",\n    \"fechaApertura\": \"<date>\"\n  }\n]"
+						}
+					]
+				},
+				{
+					"name": "2 - Hacer una Transferencia",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nroCuentaOrigen\": 100520023,\n  \"nroCuentaDestino\": 100520024,\n  \"monto\": 50,\n  \"descripcion\": \"Almuerzo\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseURL}}/api/v1/transferencia/transferir"
+					},
+					"response": []
+				},
+				{
+					"name": "3 - Validar la realización de la transferencia",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nroCuenta\": 100520023\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseURL}}/api/v1/transferencia/byCuentaOrigen"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TC48 - Intentar Hacer una Transferencia con Cuenta Destino Vacio",
+			"item": [
+				{
+					"name": "1 - Encontrar una Cuenta Origen Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"url": "{{baseURL}}/api/v1/cuenta/listAll"
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"url": "{{baseUrl}}/api/v1/cuenta/listAll"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"numCuenta\": \"<long>\",\n    \"fkNumUsuario\": \"<long>\",\n    \"saldoTotal\": \"<double>\",\n    \"estado\": \"<boolean>\",\n    \"fechaApertura\": \"<date>\"\n  },\n  {\n    \"numCuenta\": \"<long>\",\n    \"fkNumUsuario\": \"<long>\",\n    \"saldoTotal\": \"<double>\",\n    \"estado\": \"<boolean>\",\n    \"fechaApertura\": \"<date>\"\n  }\n]"
+						}
+					]
+				},
+				{
+					"name": "2 - Intentar hacer una Transferencia",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Value must have between 9 and 9 digits (inclusive)\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Value must have between 9 and 9 digits (inclusive)\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nroCuentaOrigen\": 100520023,\n  \"nroCuentaDestino\": 0,\n  \"monto\": 10,\n  \"descripcion\": \"Cena\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseURL}}/api/v1/transferencia/transferir"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TC49 - Intentar Hacer una Transferencia con Fondos Insuficientes",
+			"item": [
+				{
+					"name": "1 - Encontrar una Cuenta Origen Copy 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "*/*"
+							}
+						],
+						"url": "{{baseURL}}/api/v1/cuenta/listAll"
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"url": "{{baseUrl}}/api/v1/cuenta/listAll"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "*/*"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"numCuenta\": \"<long>\",\n    \"fkNumUsuario\": \"<long>\",\n    \"saldoTotal\": \"<double>\",\n    \"estado\": \"<boolean>\",\n    \"fechaApertura\": \"<date>\"\n  },\n  {\n    \"numCuenta\": \"<long>\",\n    \"fkNumUsuario\": \"<long>\",\n    \"saldoTotal\": \"<double>\",\n    \"estado\": \"<boolean>\",\n    \"fechaApertura\": \"<date>\"\n  }\n]"
+						}
+					]
+				},
+				{
+					"name": "2 - Intentar hacer una Transferencia",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Fondos insuficientes\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"cuenta de origen no tiene saldo suficiente\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nroCuentaOrigen\": 100520023,\n  \"nroCuentaDestino\": 100520024,\n  \"monto\": 20000,\n  \"descripcion\": \"Prueba\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseURL}}/api/v1/transferencia/transferir"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

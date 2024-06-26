@@ -1,0 +1,891 @@
+{
+	"info": {
+		"_postman_id": "1332db00-4c02-410d-82ed-fb9dfc81a1ea",
+		"name": "TS2 - Tests Funcionales",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "33720676"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "TC28 - Intentar Hacer Login con Contraseña Vacia",
+					"item": [
+						{
+							"name": "Login de usuario",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"La contraseña debe ser de 6 caracteres\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"Debe ser de 6 caracteres alfanumericos\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"cgomez@hotmail.com\",\n  \"password\": \"\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{baseURL}}/api/v1/user/login"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "TC29 - Intentar Hacer Login Ingresando Espacios en Contraseña",
+					"item": [
+						{
+							"name": "Login de usuario",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"La contraseña debe ser de 6 caracteres\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"Debe ser de 6 caracteres alfanumericos\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"cgomez@hotmail.com\",\n  \"password\": \"      \"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{baseURL}}/api/v1/user/login"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "TC30 - Intentar Hacer Login Ingresando más de 6 caracteres en Contraseña",
+					"item": [
+						{
+							"name": "Login de usuario",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"La contraseña debe ser de 6 caracteres\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"Debe ser de 6 caracteres alfanumericos\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"cgomez@hotmail.com\",\n  \"password\": \"12345yui\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{baseURL}}/api/v1/user/login"
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Transferencias",
+			"item": [
+				{
+					"name": "TC31 - Intentar hacer una Transferencia sin Número de Cuenta Origen",
+					"item": [
+						{
+							"name": "Crear una transferencia",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Value must have between 9 and 9 digits (inclusive)\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"Value must have between 9 and 9 digits (inclusive)\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"nroCuentaOrigen\": 0,\n  \"nroCuentaDestino\": 345634567,\n  \"monto\": 100,\n  \"descripcion\": \"pago\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{baseURL}}/api/v1/transferencia/transferir"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "TC32 - Intentar hacer una Transferencia sin Número de Cuenta Destino",
+					"item": [
+						{
+							"name": "Crear una transferencia",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"nroCuentaDestino Value must have between 9 and 9 digits (inclusive)\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"Value must have between 9 and 9 digits (inclusive)\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"nroCuentaOrigen\": 234449001,\n  \"nroCuentaDestino\": 0,\n  \"monto\": 50,\n  \"descripcion\": \"Comida\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{baseURL}}/api/v1/transferencia/transferir"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "TC33 - Intentar hacer una Transferencia de Cero Dólares como Monto",
+					"item": [
+						{
+							"name": "Crear una transferencia",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"monto must be greater than or equal to 1\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"must be greater than or equal to 1\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"nroCuentaOrigen\": 234449001,\n  \"nroCuentaDestino\": 456745671,\n  \"monto\": 0,\n  \"descripcion\": \"Pago\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{baseURL}}/api/v1/transferencia/transferir"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "TC34 - Intentar Listar Transferencias Creadas o Recibidas con una Fecha sin Registros",
+					"item": [
+						{
+							"name": "Lista de Transferencias por Rango de Fecha",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"nroCuenta\": 100520025,\n  \"fechaInicial\": \"1900-12-04\",\n  \"fechaFinal\": \"1900-12-05\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{baseURL}}/api/v1/transferencia/byRangoFecha"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "TC35 - Intentar Listar Transferencias Enviadas a una Cuenta Destino Inexistente",
+					"item": [
+						{
+							"name": "Lista de Transferencias Enviadas a una Cuenta Destino",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"nroCuenta\": 999999999\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{baseURL}}/api/v1/transferencia/byCuentaDestino"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "TC36 - Intentar Listar Transferencias Enviadas y Recibidas con Número de cuenta inexistente",
+					"item": [
+						{
+							"name": "Lista de Transferencias Creadas y Recibidas de una Cuenta Origen",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"nroCuenta\": 999999999\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{baseURL}}/api/v1/transferencia/byCuenta"
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Cuentas",
+			"item": [
+				{
+					"name": "TC37 - Intentar Crear una Cuenta con Username Vacio",
+					"item": [
+						{
+							"name": "Crear una Cuenta",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{baseURL}}/api/v1/cuenta/create?userName=",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"cuenta",
+										"create"
+									],
+									"query": [
+										{
+											"key": "userName",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"estado\": \"<boolean>\",\n  \"fkNumUsuario\": \"<long>\",\n  \"numCuenta\": \"<long>\",\n  \"saldoTotal\": \"<double>\",\n  \"fechaApertura\": \"<date>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{baseUrl}}/api/v1/cuenta/create"
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"numCuenta\": \"<long>\",\n  \"fkNumUsuario\": \"<long>\",\n  \"saldoTotal\": \"<double>\",\n  \"estado\": \"<boolean>\",\n  \"fechaApertura\": \"<date>\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "TC38 - Intentar Crear una Cuenta Ingresando Caracteres especiales en userNum",
+					"item": [
+						{
+							"name": "Crear una Cuenta",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{baseURL}}/api/v1/cuenta/create?userName=(%^%$",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"cuenta",
+										"create"
+									],
+									"query": [
+										{
+											"key": "userName",
+											"value": "(%^%$"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"estado\": \"<boolean>\",\n  \"fkNumUsuario\": \"<long>\",\n  \"numCuenta\": \"<long>\",\n  \"saldoTotal\": \"<double>\",\n  \"fechaApertura\": \"<date>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{baseUrl}}/api/v1/cuenta/create"
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"numCuenta\": \"<long>\",\n  \"fkNumUsuario\": \"<long>\",\n  \"saldoTotal\": \"<double>\",\n  \"estado\": \"<boolean>\",\n  \"fechaApertura\": \"<date>\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "TC39 - Intentar Encontrar una Cuenta Ingresando Caracteres especiales en userNum",
+					"item": [
+						{
+							"name": "Encontrar Cuenta por Numero de Cuenta",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "*/*"
+									}
+								],
+								"url": {
+									"raw": "{{baseURL}}/api/v1/cuenta/:numCuenta",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"cuenta",
+										":numCuenta"
+									],
+									"variable": [
+										{
+											"key": "numCuenta",
+											"value": "*@$%_"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "*/*"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/cuenta/:numCuenta",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"cuenta",
+												":numCuenta"
+											],
+											"variable": [
+												{
+													"key": "numCuenta"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"numCuenta\": \"<long>\",\n  \"fkNumUsuario\": \"<long>\",\n  \"saldoTotal\": \"<double>\",\n  \"estado\": \"<boolean>\",\n  \"fechaApertura\": \"<date>\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "TC40 - Intentar Encontrar una Cuenta con numCuenta Vacio",
+					"item": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "TC41 - Intentar Crear un Usuario con el \"personEmail\" Vacio",
+					"item": [
+						{
+							"name": "Crear Usuario",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"La persona con email:  no existe!\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"La persona con email:  no existe!\");",
+											"});",
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"userName\": \"test1\",\n  \"password\": \"12345a\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/api/v1/user?personEmail=",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user"
+									],
+									"query": [
+										{
+											"key": "personEmail",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "TC42 - Intentar Encontar Usurio Ingresando Letras en el \"userNum\"",
+					"item": [
+						{
+							"name": "Encontrar Usuario por Número",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/api/v1/user/:userNum",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										":userNum"
+									],
+									"variable": [
+										{
+											"key": "userNum",
+											"value": "vbn"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "TC43 - Intentar Encontrar Usuario Ingresando Número en el \"userEmail\"",
+					"item": [
+						{
+							"name": "Encontrar Usuario por UserName",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"pm.test(\"El usuario con username: 12345 no existe!\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"El usuario con numero: 12345 no existe!\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/api/v1/user/findUserByUserName?userName=12345",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"findUserByUserName"
+									],
+									"query": [
+										{
+											"key": "userName",
+											"value": "12345"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Persona",
+			"item": [
+				{
+					"name": "TC44 - Intentar Crear Persona con el Campo Obligatorio \"email\" Vacio",
+					"item": [
+						{
+							"name": "Crear Persona",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"num_dni\": \"25678333\",\n  \"name\": \"Carlos\",\n  \"lastName\": \"Gonzalez\",\n  \"birth\": \"1980-05-02\",\n  \"phone\": \"1533679900\",\n  \"email\": \"\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{baseURL}}/api/v1/person"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "TC45 - Intentar Encontrar Persona Ingresando Letras en el \"personNum\"",
+					"item": [
+						{
+							"name": "Encontrar Pesona por Número",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/api/v1/person/:personNum",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"person",
+										":personNum"
+									],
+									"variable": [
+										{
+											"key": "personNum",
+											"value": "abcd"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "TC46 - Intentar Encontrar una Persona Ingresando un Correo sin Dominio",
+					"item": [
+						{
+							"name": "Encontrar Pesona por Email",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"pm.test(\"Email no existe!\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"no existe!\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/api/v1/person/findPersonByEmail?personEmail=pazrafael2",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"person",
+										"findPersonByEmail"
+									],
+									"query": [
+										{
+											"key": "personEmail",
+											"value": "pazrafael2"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://template.postman-echo.com",
+			"type": "string"
+		},
+		{
+			"key": "apiKey",
+			"value": "hRkgiBSD.alY86KwTdRXh2WHrgH1Gs"
+		}
+	]
+}

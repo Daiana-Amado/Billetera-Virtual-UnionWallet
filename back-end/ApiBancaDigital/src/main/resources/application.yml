@@ -1,0 +1,26 @@
+server:
+  port: ${SERVER_PORT:10000}
+  address: 0.0.0.0
+
+spring:
+  application:
+    name: ApiBancaDigital
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://c1046.gconex.com:3306/c17-61-t-java}
+    username: ${SPRING_DATASOURCE_USERNAME:devsc17}
+    password: ${SPRING_DATASOURCE_PASSWORD:c17-61-t-java}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQLDialect
+  messages:
+    basename: errorMessages
+  smtp:
+    host: ${SMTP_HOST:smtp.gmail.com}
+    port: ${SMTP_PORT:587}
+    starttls.enable: ${SMTP_STARTTLS_ENABLE:true}
+    auth: ${SMTP_AUTH:true}
+    username: ${SMTP_USERNAME:avisos.unionbank@gmail.com}
+    password: ${SMTP_PASSWORD:bfaenpfhvozcxjrx}
